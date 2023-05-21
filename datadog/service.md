@@ -1,6 +1,6 @@
 ```json showLineNumbers
 {
-  "identifier": "serviceDependency",
+  "identifier": "service",
   "title": "Datadog Service",
   "icon": "Datadog",
   "schema": {
@@ -10,9 +10,9 @@
   "mirrorProperties": {},
   "calculationProperties": {},
   "relations": {
-    "serviceDependency": {
+    "service": {
       "title": "Depends On",
-      "target": "serviceDependency",
+      "target": "service",
       "required": false,
       "many": true
     }

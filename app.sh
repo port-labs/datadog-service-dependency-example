@@ -8,7 +8,7 @@ PORT_CLIENT_ID="$PORT_CLIENT_ID"
 PORT_CLIENT_SECRET="$PORT_CLIENT_SECRET"
 DATADOG_API_URL="https://api.us5.datadoghq.com/api/v1"
 PORT_API_URL="https://api.getport.io/v1"
-BLUEPRINT_ID="serviceDependency"
+BLUEPRINT_ID="service"
 
 # Get Port Access Token
 credentials="{\"clientId\": \"$PORT_CLIENT_ID\", \"clientSecret\": \"$PORT_CLIENT_SECRET\"}"
@@ -33,7 +33,7 @@ retrieve_service_dependencies() {
     for service in $(echo "$service_dependencies" | jq -r 'keys[]'); do
         calls=$(echo "$service_dependencies" | jq -r ".[\"$service\"] | select(.calls) | .calls")
         if [[ "$calls" != "null" ]]; then
-            entity="{\"identifier\": \"$service\", \"title\": \"$service\", \"properties\": {}, \"relations\": {\"serviceDependency\": $calls}}"
+            entity="{\"identifier\": \"$service\", \"title\": \"$service\", \"properties\": {}, \"relations\": {\"service\": $calls}}"
             add_entity_to_port "$entity"
         fi
     done
