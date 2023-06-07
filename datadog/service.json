@@ -1,4 +1,3 @@
-```json showLineNumbers
 {
   "identifier": "service",
   "title": "Datadog Service",
@@ -18,4 +17,3 @@
     }
   }
 }
-```

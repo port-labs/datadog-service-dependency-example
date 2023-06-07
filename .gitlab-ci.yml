@@ -5,6 +5,7 @@ variables:
   PORT_CLIENT_SECRET: $PORT_CLIENT_SECRET
   DATADOG_API_KEY: $DATADOG_API_KEY
   DATADOG_APPLICATION_KEY: $DATADOG_APPLICATION_KEY
+  DATADOG_API_URL: $DATADOG_API_URL
   DATADOG_ENVIRONMENT_ID: $DATADOG_ENVIRONMENT_ID
 
 stages:
@@ -16,7 +17,7 @@ ingest_datadog_apm_to_port_job:
     - apk update && apk add curl jq
   script:
     - echo "Getting Datadog Service APM"
-    - sh app.sh
+    - sh datadog/start.sh
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
       when: always

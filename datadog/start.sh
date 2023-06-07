@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Get environment variables
-DATADOG_API_KEY="$DATADOG_API_KEY"
-DATADOG_APPLICATION_KEY="$DATADOG_APPLICATION_KEY"
-DATADOG_ENVIRONMENT_ID="$DATADOG_ENVIRONMENT_ID"
 PORT_CLIENT_ID="$PORT_CLIENT_ID"
 PORT_CLIENT_SECRET="$PORT_CLIENT_SECRET"
-DATADOG_API_URL="https://api.us5.datadoghq.com/api/v1"
+DATADOG_API_KEY="$DATADOG_API_KEY"
+DATADOG_APPLICATION_KEY="$DATADOG_APPLICATION_KEY"
+DATADOG_API_URL="$DATADOG_API_URL"
+DATADOG_ENVIRONMENT_ID="$DATADOG_ENVIRONMENT_ID"
 PORT_API_URL="https://api.getport.io/v1"
 BLUEPRINT_ID="service"
 
@@ -18,7 +18,7 @@ access_token=$(echo "$token_response" | jq -r '.accessToken')
 # Create entity in Port
 add_entity_to_port() {
     entity_object="$1"
-    response=$(curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $access_token" -d "$entity_object" "$PORT_API_URL/blueprints/$BLUEPRINT_ID/entities?upsert=true&merge=true")
+    response=$(curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $access_token" -d "$entity_object" "$PORT_API_URL/blueprints/$BLUEPRINT_ID/entities?upsert=true&merge=true&create_missing_related_entities=true")
     echo "$response"
 }
 
@@ -26,7 +26,7 @@ add_entity_to_port() {
 retrieve_service_dependencies() {
     env="$1"
     headers="-H 'DD-API-KEY: $DATADOG_API_KEY' -H 'DD-APPLICATION-KEY: $DATADOG_APPLICATION_KEY' -H 'Accept: application/json'"
-    services_response=$(curl -H "DD-API-KEY: $DATADOG_API_KEY" -H "DD-APPLICATION-KEY: $DATADOG_APPLICATION_KEY" -H "Accept: application/json" "$DATADOG_API_URL/service_dependencies?env=$env")
+    services_response=$(curl -H "DD-API-KEY: $DATADOG_API_KEY" -H "DD-APPLICATION-KEY: $DATADOG_APPLICATION_KEY" -H "Accept: application/json" "$DATADOG_API_URL/api/v1/service_dependencies?env=$env")
     service_dependencies=$(echo "$services_response" | jq '.')
     echo "$service_dependencies"
 

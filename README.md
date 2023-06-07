@@ -3,10 +3,10 @@
 
 ## Getting started
 
-In this example you will create a blueprint for `service` entity that ingests all services and their related dependencies in your Datadog APM using REST API. You will then add some shell script to create new entities in Port every time a GitLab CI is triggered by a schedule.
+In this example, you will create a `service` blueprint that ingests all services and their related dependencies in your Datadog APM using REST API. You will then add some shell script to create new entities in Port every time GitLab CI is triggered by a schedule.
 
 ## Service Blueprint
-Create the service blueprint in Port [using this json file](./datadog/service.md)
+Create the service blueprint in Port [using this json file](./datadog/service.json)
 
 ### Gitlab CI yaml
 Place this example `.gitlab-ci.yml` file in your project's root folder
@@ -19,8 +19,8 @@ The list of the required variables to run this pipeline are:
 - `PORT_CLIENT_SECRET`
 - `DATADOG_API_KEY`
 - `DATADOG_APPLICATION_KEY`
-- `DATADOG_ENVIRONMENT_ID`
 - `DATADOG_API_URL`
+- `DATADOG_ENVIRONMENT_ID`
 
 ### Schedule the script
 1. Go to your Gitlab project and select CI/CD
